@@ -29,14 +29,20 @@ export default async function Details(req, res) {
     const response = await fetch("https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&key=AIzaSyCVlwT0OyyYi7tuQPQx96sgD3-sm4_fJts&id=" + req.query.id)
     let json = await response.json()
     
-    // console.log(json)
-    let result = {
-        url: "www.youtube.com/watch?v=" + req.query.id,
-        title: json.items[0].snippet.title,
-        description: json.items[0].snippet.description,
-        img: json.items[0].snippet.thumbnails.high.url,
+    if (json.items[0] != null) {
+        let result = {
+            url: "www.youtube.com/watch?v=" + req.query.id,
+            title: json.items[0].snippet.title,
+            description: json.items[0].snippet.description,
+            img: json.items[0].snippet.thumbnails.high.url,
+        }
+        res.send(result)
+
     }
-    res.send(result)
+    else {
+        res.status(400).send("Video not found")
+    }
+    // console.log(json)
 }
 
 

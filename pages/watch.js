@@ -9,9 +9,18 @@ export default function Home() {
   const [video, setVideo] = useState()
 
   useEffect(async () => {
-    const video = await (await fetch("/api/details?id=" + router.query.v)).json()
-    setVideo(video)
-  }, [router])
+    if (router.query.v) {
+      const response = await fetch("/api/details?id=" + router.query.v)
+
+      if (response.status == 400) {
+        console.log("The requested video was not found")
+      }
+      else {
+        const video = await response.json()
+        setVideo(video)
+      }
+    }
+  }, [router.query])
 
   return (
     <div className={styles.container}>
@@ -26,7 +35,8 @@ export default function Home() {
           {video?.title}
         </h1>
         <img src={video?.img} alt="" />
-        <button className={styles.button} onClick={() => router.push("/api/download/" + router.query.v)}>Download Video</button>
+        <button className={styles.button} onClick={() => router.push("/api/download/video/" + router.query.v)}>Download Video</button>
+        <button className={styles.button} onClick={() => router.push("/api/download/audio/" + router.query.v)}>Download Audio</button>
       </main>
         
     </div>
