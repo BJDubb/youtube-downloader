@@ -1,7 +1,8 @@
 import ytdl from 'ytdl-core'
 import { NextResponse } from 'next/server';
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 import ffmpeg from 'fluent-ffmpeg';
-ffmpeg.setFfmpegPath(".\\node_modules\\@ffmpeg-installer\\win32-x64\\ffmpeg.exe");
+ffmpeg.setFfmpegPath(ffmpegPath);
 
 type PageParams = {
     params: {
