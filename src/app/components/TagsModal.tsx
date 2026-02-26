@@ -2,7 +2,7 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import Image from 'next/image';
-const ID3Writer = require('browser-id3-writer');
+import { ID3Writer } from 'browser-id3-writer';
 import { useFilePicker } from 'use-file-picker';
 import {
     FileAmountLimitValidator,
